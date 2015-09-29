@@ -66,9 +66,10 @@ def convert_training_file_into_model(file):
         training_data += line
 
     output = ''
-    output += 'spam count: ' + str(spam_count) + '\n'
-    output += 'ham count: ' + str(ham_count) + '\n'
-    output += 'total lines: ' + str(total_lines) + '\n'
+    output += 'spam_count ' + str(spam_count) + '\n'
+    output += 'ham_count ' + str(ham_count) + '\n'
+    output += 'total_count ' + str(total_lines) + '\n'
+    output += '\n'
 
     output += training_data
 
@@ -289,17 +290,17 @@ def main():
     print('How to use this program?')
     print('Run this program with parameter: (one at a time)')
     print('1 - ')
+
+    line = "9 0:9 1:1 2:4 3:4 4:6 5:4"
+    print(count_words(line, "3"))
+    tokens = ["3", "4", "6"]
+    print(count_words_with_tokens(line, tokens))
+
     if len(sys.argv) == 2:
         print("The input path in the first argument is: ", sys.argv[1])
         # print("The output path in the second argument is: ", sys.argv[2])
 
         file = open(sys.argv[1], "r")
-
-        line = "9 0:9 1:1 2:4 3:4 4:6 5:4"
-        print(count_words(line, "3"))
-
-        tokens = ["3", "4", "6"]
-        print(count_words_with_tokens(line, tokens))
 
         all_spam_files = []
         all_ham_files = []
