@@ -4,7 +4,7 @@ import os
 __author__ = 'Frank'
 
 
-def check_positive_and_negative(file):
+def convert_sentiment_training_data_into_model(file):
     positive_count = 0
     negative_count = 0
     neutral_count = 0
@@ -40,6 +40,37 @@ def check_positive_and_negative(file):
     output += training_data
 
     # print(output)
+
+    return output
+
+
+def convert_training_file_into_model(file):
+    spam_count = 0
+    ham_count = 0
+    total_lines = 0
+
+    training_data = ''
+
+    for line in file:
+        total_lines += 1
+
+        words = line.split()
+        first_word = words[0]
+
+        if first_word == '+1':
+            spam_count += 1
+        elif first_word == '-1':
+            ham_count += 1
+        else:
+            pass
+        training_data += line
+
+    output = ''
+    output += 'spam count: ' + str(spam_count) + '\n'
+    output += 'ham count: ' + str(ham_count) + '\n'
+    output += 'total lines: ' + str(total_lines) + '\n'
+
+    output += training_data
 
     return output
 
@@ -202,34 +233,68 @@ def transform_file_into_project_data_format(file_name, category, vocab):
             else:
                 word_dictionary[word] += 1
 
-    print(word_dictionary)
+    # print(word_dictionary)
 
     for i in range(1, len(vocab)):
         token = vocab[i].lower()
         if token in word_dictionary:
             output += str(i) + ':' + str(word_dictionary[token]) + ' '
-    print(output)
+    # print(output)
     return output
 
 
-def main():
-    print("The name of this script file is: ", sys.argv[0])
+def generate_email_training_file():
+    all_ham_files, all_spam_files = list_all_the_files()
 
+    vocab_list = read_vocab_file()
+    print(len(vocab_list), vocab_list[0], vocab_list[1], vocab_list[159211])
+
+    file_to_write = open('email_training_file', 'w')
+
+    output_data = ''
+    count = 0
+    for file in all_spam_files:
+        a_line = transform_file_into_project_data_format(file, '+1', vocab_list)
+        output_data += a_line + '\n'
+        print(count)
+        count += 1
+    for file in all_ham_files:
+        a_line = transform_file_into_project_data_format(file, '-1', vocab_list)
+        output_data += a_line + '\n'
+        print(count)
+        count += 1
+
+    file_to_write.write(output_data)
+    return
+
+
+def generate_spam_model():
+    file = open('email_training_file', 'r')
+    model_file_content = convert_training_file_into_model(file)
+    model_file = open('spam.nb.model', 'w')
+    model_file.write(model_file_content)
+    return
+
+
+def generate_sentiment_model():
+    file = open('labeledBow.feat', 'r')
+    content = convert_sentiment_training_data_into_model(file)
+    file_to_write = open('sentiment.nb.model', 'w')
+    file_to_write.write(content)
+    return
+
+
+def main():
+    print("Current script file is: ", sys.argv[0])
+    print('How to use this program?')
+    print('Run this program with parameter: (one at a time)')
+    print('1 - ')
     if len(sys.argv) == 2:
         print("The input path in the first argument is: ", sys.argv[1])
         # print("The output path in the second argument is: ", sys.argv[2])
 
         file = open(sys.argv[1], "r")
 
-        # output = check_positive_and_negative(file)
-
-        # file_to_write = open("sentiment.nb.model", "w")
-
-        # for line in file:
-        #    output += line
-        #    print(line)
-
-        # file_to_write.write(output)
         line = "9 0:9 1:1 2:4 3:4 4:6 5:4"
         print(count_words(line, "3"))
 
@@ -238,22 +303,8 @@ def main():
 
         all_spam_files = []
         all_ham_files = []
+    # generate_sentiment_model()
+    return
 
-        all_ham_files, all_spam_files = list_all_the_files()
-
-        vocab_list = read_vocab_file()
-        print(len(vocab_list), vocab_list[0], vocab_list[1], vocab_list[159211])
-
-        file_to_write = open('email_training_file', 'w')
-
-        output_data = ''
-        for file in all_spam_files:
-            a_line = transform_file_into_project_data_format(file, '+1', vocab_list)
-            output_data += a_line + '\0'
-        for file in all_ham_files:
-            a_line = transform_file_into_project_data_format(file, '-1', vocab_list)
-            output_data += a_line + '\0'
-
-        file_to_write.write(output_data)
 
 main()
