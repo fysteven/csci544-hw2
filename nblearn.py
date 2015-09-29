@@ -29,6 +29,10 @@ def convert_training_data_into_model(file):
     neutral_count = 0
     total_lines = 0
 
+    words_in_positive = 0
+    words_in_negative = 0
+    words_in_total = 0
+
     tokens_in_positive_count = {}
     tokens_in_negative_count = {}
 
@@ -45,6 +49,8 @@ def convert_training_data_into_model(file):
                 pair = words[i].split(':')
                 feature = int(pair[0])
                 value = int(pair[1])
+                words_in_positive += value
+                words_in_total += value
                 if feature not in tokens_in_positive_count:
                     tokens_in_positive_count[feature] = value
                 else:
@@ -56,6 +62,8 @@ def convert_training_data_into_model(file):
                 pair = words[i].split(':')
                 feature = int(pair[0])
                 value = int(pair[1])
+                words_in_negative += value
+                words_in_total += value
                 if feature not in tokens_in_negative_count:
                     tokens_in_negative_count[feature] = value
                 else:
@@ -70,6 +78,10 @@ def convert_training_data_into_model(file):
     output += "negative_count " + str(negative_count) + '\n'
     output += "neutral_count " + str(neutral_count) + '\n'
     output += "total_count " + str(total_lines) + '\n'
+
+    output += 'words_in_positive ' + str(words_in_positive) + '\n'
+    output += 'words_in_negative ' + str(words_in_negative) + '\n'
+    output += 'words_in_total ' + str(words_in_total) + '\n'
 
     # for i in range(0, len(tokens_in_positive_count)):
     #     feature = str(i)
