@@ -1,0 +1,4 @@
+spam model:
+
+First, I created a folder emails_input, and moved all the enron folders (which were already unzipped) into the folder emails_input.
+Then, I 

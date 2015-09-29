@@ -31,14 +31,29 @@ def convert_training_data(file_name):
     return
 
 
+def convert_test_data(file_name):
+    original_data = open(file_name, 'r')
+
+    output_line = ''
+    all_the_lines = ''
+    for line in original_data:
+        all_the_lines += '+1 ' + line
+
+    file_to_write = open(file_name + 'svm.intermediate', 'w')
+    file_to_write.write(all_the_lines)
+
+    return
+
+
 def main():
     print('SVM-Light toolkit')
-    print('1 - convert training data')
-    print()
+    print('1 TRAININGFILE - convert training data to svm format')
+    print('2 TESTFILE - convert test data to svm format')
     if len(sys.argv) == 3:
         if sys.argv[1] == '1':
             convert_training_data(sys.argv[2])
-
+        elif sys.argv[1] == '2':
+            convert_test_data(sys.argv[2])
     return
 
 
