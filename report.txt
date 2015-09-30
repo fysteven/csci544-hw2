@@ -65,11 +65,23 @@ MegaM toolkit:
 
 spam test:
 
+precision of positive:  0.9974554707379135
+recall of positive:  0.9920462762111352
+F1 score of positive:  0.9947435200290013
 
+precision of negative:  0.9921428571428571
+recall of negative:  0.9921428571428571
+F1 score of negative:  0.9921428571428571
 
 sentiment test:
 
+precision of positive:  0.9386327503974563
+recall of positive:  0.921635966281611
+F1 score of positive:  0.9300567107750474
 
+precision of negative:  0.9191626409017714
+recall of negative:  0.9191626409017714
+F1 score of negative:  0.9191626409017714
 
 
 2. I randomly selected 25% of the labeled development data for training, and the rest 75% for testing.
@@ -122,22 +134,40 @@ MegaM toolkit:
 
 spam test:
 
+precision of positive:  0.9878888625029684
+recall of positive:  0.9848484848484849
+F1 score of positive:  0.986366330764671
+
+precision of negative:  0.9844490341392298
+recall of negative:  0.9844490341392298
+F1 score of negative:  0.9844490341392298
 
 sentiment test:
 
+precision of positive:  0.8320246179966044
+recall of positive:  0.8211331029427165
+F1 score of positive:  0.8265429821325041
 
+precision of negative:  0.816856101222389
+recall of negative:  0.816856101222389
+F1 score of negative:  0.8168561012223892
 
 1.
-In the case of 75% of development data, naive bayes performs the best. In the case of 25% development data as training data, SVM performs the best.
-
-Because Naive Bayes needs a larger corpus so that the result would be more accurate.
+When 75% of the development data is used to train the model, and the rest for testing:
+MegaM performs the best in spam test.
+SVM-light performs the best in sentiment test.
 
 
 2.
-Naive Bayes doesn't drop much.
-SVM drops more comapred to other two.
 
-Naive Bayes is relatively more robust.
+
+SVM drops more compared to other two.
+
+MegaM is more robust compared to other two given a smaller training set.
+
+Naive Bayes doesn't drop much.
+SVM drops by 0.10
+
 
 There is a huge difference between naive Bayes and Sentiment
 
