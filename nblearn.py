@@ -117,7 +117,10 @@ def main():
         print('Please run this program in the following manner:')
         print('python3 nblearn.py TRAININGFILE MODELFILE')
     else:
-        generate_sentiment_model(sys.argv[1], sys.argv[2])
+        if sys.argv[1] == sys.argv[2]:
+            print('TRAININGFILE and MODELFILE cannot be the same one.')
+        else:
+            generate_sentiment_model(sys.argv[1], sys.argv[2])
     return
 
 

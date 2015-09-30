@@ -13,14 +13,22 @@ def convert_training_data_to_megam_format(file_name):
         output_line = line.replace(':', ' ')
         words = output_line.split(' ', 1)
         first_word = words[0]
-        if first_word == '1':
-            pass
-        elif first_word == '0':
-            pass
+        if first_word == 'SPAM':
+            output_line = '1 ' + words[1]
+        elif first_word == 'HAM':
+            output_line = '0 ' + words[1]
+        elif first_word == 'POSITIVE':
+            output_line = '1 ' + words[1]
+        elif first_word == 'NEGATIVE':
+            output_line = '0 ' + words[1]
         elif int(first_word) >= 7:
             output_line = '1 ' + words[1]
         elif int(first_word) <= 4:
             output_line = '0 ' + words[1]
+        elif first_word == '1':
+            pass
+        elif first_word == '0':
+            pass
 
         all_the_lines += output_line
 

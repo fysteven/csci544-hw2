@@ -81,7 +81,7 @@ def naive_bayes_classify(feature_value, positive_count, negative_count, neutral_
         else:
             p_message_negative *= ((tokens_in_negative_count[key] + 1) / (words_in_negative + words_in_total) ** feature_value[key])
 
-    p_positive_message = 1 / (1 + p_negative * p_message_negative / (p_positive * p_message_positive))
+    p_positive_message = (p_positive * p_message_positive) / (p_positive * p_message_positive + p_negative * p_message_negative)
 
     return p_positive_message
 
@@ -90,8 +90,6 @@ def function1(model_file_name, test_file_name):
 
     positive_count, negative_count, neutral_count, total_count, words_in_positive, words_in_negative, words_in_total, \
         tokens_in_positive_count, tokens_in_negative_count = open_model_file(model_file_name)
-
-    output_file = open(test_file_name + '.out', 'w')
 
     output = ''
 
@@ -113,6 +111,7 @@ def function1(model_file_name, test_file_name):
 
         output += '\n'
 
+    output_file = open(test_file_name + '.out', 'w')
     output_file.write(output)
     return
 

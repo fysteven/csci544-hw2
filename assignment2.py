@@ -218,6 +218,20 @@ def read_vocab_file():
     return tokens
 
 
+def read_vocab_file2():
+    file_name = 'enron.vocab'
+    file = open(file_name, 'r', encoding='latin1')
+    vocabs = {}
+
+    count = 1
+    for line in file:
+        words = line.split()
+        vocabs[words[0].lower()] = count
+        count += 1
+
+    return vocabs
+
+
 def transform_file_into_project_data_format(file_name, category, vocab):
     file = open(file_name, 'r', encoding='latin1')
 
@@ -241,6 +255,39 @@ def transform_file_into_project_data_format(file_name, category, vocab):
         if token in word_dictionary:
             output += str(i) + ':' + str(word_dictionary[token]) + ' '
     # print(output)
+    return output
+
+
+def transform_file_into_project_data_format2(file_name, category, vocabs):
+    file = open(file_name, 'r', encoding='latin1')
+
+    output = ''
+    if category == '':
+        pass
+    else:
+        output += category + ' '
+
+    word_dictionary = {}
+    result_dictionary = {}
+    for line in file:
+        words = line.split()
+        for word in words:
+            word = word.lower()
+            if word not in word_dictionary:
+                word_dictionary[word] = 1
+            else:
+                word_dictionary[word] += 1
+
+    for key in word_dictionary.keys():
+        if key in vocabs:
+            result_dictionary[int(vocabs[key])] = int(word_dictionary[key])
+        else:
+            print('A word is not in the vocabulary')
+
+    for key in sorted(result_dictionary.keys()):
+        output += str(key) + ':' + str(result_dictionary[key]) + ' '
+
+    output += '\n'
     return output
 
 
@@ -285,12 +332,31 @@ def generate_sentiment_model():
     return
 
 
+def generate_spam_test_data():
+    base_directory = './spam_or_ham_test/'
+    email_test_files = list_files(base_directory)
+    # print(email_test_files)
+    vocabs = read_vocab_file2()
+
+    output_data = ''
+    count = 0
+    for file in email_test_files:
+        a_line = transform_file_into_project_data_format2(file, '', vocabs)
+        output_data += a_line
+        print(count)
+        count += 1
+
+    file_to_write = open('email_test_file', 'w')
+    file_to_write.write(output_data)
+    return
+
+
 def main():
     print("Current script file is: ", sys.argv[0])
     print('How to use this program?')
     print('Run this program with parameter: (one at a time)')
     print('1 - ')
-
+    print('2 - convert email test files into Project Data format without labels')
     line = "9 0:9 1:1 2:4 3:4 4:6 5:4"
     print(count_words(line, "3"))
     tokens = ["3", "4", "6"]
@@ -300,11 +366,16 @@ def main():
         print("The input path in the first argument is: ", sys.argv[1])
         # print("The output path in the second argument is: ", sys.argv[2])
 
-        file = open(sys.argv[1], "r")
+
 
         all_spam_files = []
         all_ham_files = []
     # generate_sentiment_model()
+        if sys.argv[1] == '2':
+            generate_spam_test_data()
+
+    # vocabs = read_vocab_file2()
+    # print(vocabs)
     return
 
 
