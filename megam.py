@@ -39,6 +39,10 @@ def convert_training_data_to_megam_format(file_name):
             output_line = '1 ' + words[1]
         elif first_word == 'HAM':
             output_line = '0 ' + words[1]
+        elif first_word == '+1':
+            output_line = '1 ' + words[1]
+        elif first_word == '-1':
+            output_line = '0 ' + words[1]
         elif first_word == 'POSITIVE':
             output_line = '1 ' + words[1]
         elif first_word == 'NEGATIVE':
