@@ -1,6 +1,6 @@
 import sys
 import os
-
+import math
 
 __author__ = 'Frank'
 
@@ -67,23 +67,28 @@ def naive_bayes_classify(feature_value, positive_count, negative_count, neutral_
     p_positive = positive_count / total_count
     p_negative = negative_count / total_count
 
-    p_message_positive = 1
-    p_message_negative = 1
+    p_message_positive = 0
+    p_message_negative = 0
 
     for key in feature_value:
         if key not in tokens_in_positive_count:
-            p_message_positive *= (1 / (words_in_positive + words_in_total)) ** feature_value[key]
+            p_message_positive += math.log10(1 / (words_in_positive + words_in_total)) * feature_value[key]
         else:
-            p_message_positive *= ((tokens_in_positive_count[key] + 1) / (words_in_positive + words_in_total) ** feature_value[key])
+            p_message_positive += math.log10((tokens_in_positive_count[key] + 1) / (words_in_positive + words_in_total)) * feature_value[key]
 
         if key not in tokens_in_negative_count:
-            p_message_negative *= (1 / (words_in_negative + words_in_total)) ** feature_value[key]
+            p_message_negative += math.log10(1 / (words_in_negative + words_in_total)) * feature_value[key]
         else:
-            p_message_negative *= ((tokens_in_negative_count[key] + 1) / (words_in_negative + words_in_total) ** feature_value[key])
+            p_message_negative += math.log10((tokens_in_negative_count[key] + 1) / (words_in_negative + words_in_total)) * feature_value[key]
 
-    p_positive_message = (p_positive * p_message_positive) / (p_positive * p_message_positive + p_negative * p_message_negative)
+    p_positive_message = math.log10(p_positive) + p_message_positive
 
-    return p_positive_message
+    p_negative_message = math.log10(p_negative) + p_message_negative
+
+    if p_positive_message > p_negative_message:
+        return 'POSITIVE'
+    else:
+        return 'NEGATIVE'
 
 
 def function1(model_file_name, test_file_name):
@@ -99,6 +104,8 @@ def function1(model_file_name, test_file_name):
         feature_value = {}
         for word in words:
             pair = word.split(':')
+            if len(pair) == 1:
+                continue
             feature = int(pair[0])
             value = int(pair[1])
             if feature not in feature_value:
@@ -111,7 +118,7 @@ def function1(model_file_name, test_file_name):
 
         output += '\n'
 
-    output_file = open(test_file_name + '.out', 'w')
+    output_file = open(test_file_name + '.nb.out', 'w')
     output_file.write(output)
     return
 

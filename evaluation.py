@@ -16,15 +16,14 @@ def convert_actual_result_into_uniform_format(actual_list):
             result_list.append('+1')
         elif actual_list[i] == '-1':
             result_list.append('-1')
-        elif int(actual_list[i]) >= 7:
-            result_list.append('+1')
-        elif int(actual_list[i]) <= 4:
-            result_list.append('-1')
         elif actual_list[i] == 'POSITIVE':
             result_list.append('+1')
         elif actual_list[i] == 'NEGATIVE':
             result_list.append('-1')
-
+        elif int(actual_list[i]) >= 7:
+            result_list.append('+1')
+        elif int(actual_list[i]) <= 4:
+            result_list.append('-1')
     return result_list
 
 
@@ -48,6 +47,8 @@ def evaluate(actual_file, predicted_file):
     for line in predicted_result:
         words = line.split()
         predicted_list.append(words[0])
+
+    predicted_list = convert_actual_result_into_uniform_format(predicted_list)
 
     total_in_actual = len(actual_list)
     total_in_predicted = len(predicted_list)

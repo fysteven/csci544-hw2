@@ -4,6 +4,28 @@ import sys
 __author__ = 'Frank'
 
 
+def check_positive(word):
+    if word == '+1':
+        return True
+    elif word == '-1':
+        return False
+    elif word == 'POSITIVE':
+        return True
+    elif word == 'NEGATIVE':
+        return False
+    elif word == 'SPAM':
+        return True
+    elif word == 'HAM':
+        return False
+    elif int(word) >= 7:
+        return True
+    elif int(word) <= 4:
+        return False
+    else:
+        print('Something wrong in the first word of a line')
+        return False
+
+
 def count_words_with_tokens(line, tokens):
     words = line.split()
     total_count_in_line = 0
@@ -43,7 +65,7 @@ def convert_training_data_into_model(file):
         words = line.split()
         first_word = words[0]
 
-        if int(first_word) >= 7:
+        if check_positive(first_word):
             positive_count += 1
             for i in range(1, len(words)):
                 pair = words[i].split(':')
@@ -56,7 +78,7 @@ def convert_training_data_into_model(file):
                 else:
                     tokens_in_positive_count[feature] += value
 
-        elif int(first_word) <= 4:
+        else:
             negative_count += 1
             for i in range(1, len(words)):
                 pair = words[i].split(':')
@@ -68,8 +90,6 @@ def convert_training_data_into_model(file):
                     tokens_in_negative_count[feature] = value
                 else:
                     tokens_in_negative_count[feature] += value
-        else:
-            neutral_count += 1
 
         training_data += line
 

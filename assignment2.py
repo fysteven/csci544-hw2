@@ -1,5 +1,6 @@
 import sys
 import os
+import random
 
 __author__ = 'Frank'
 
@@ -351,12 +352,36 @@ def generate_spam_test_data():
     return
 
 
+def generate_random_training_and_dev(file_name, percentage):
+    file = open(file_name, 'r')
+    lines = file.readlines()
+    line_count = len(lines)
+
+    training_lines = random.sample(range(0, line_count), int(line_count * float(percentage)))
+
+    dev_lines = ''
+    for i in range(0, line_count):
+        if i not in training_lines:
+            dev_lines += lines[i]
+
+    training_file_split = open('split_training_file', 'w')
+
+    for line in training_lines:
+        training_file_split.write('%s' % lines[line])
+
+    dev_file_split = open('split_for_test_file', 'w')
+    dev_file_split.write(dev_lines)
+    print()
+    return
+
+
 def main():
     print("Current script file is: ", sys.argv[0])
     print('How to use this program?')
     print('Run this program with parameter: (one at a time)')
     print('1 - ')
     print('2 - convert email test files into Project Data format without labels')
+    print('3 TRAININGFILE PERCENTAGE - generate, say, 75% of labeled data for training and the rest for testing')
     line = "9 0:9 1:1 2:4 3:4 4:6 5:4"
     print(count_words(line, "3"))
     tokens = ["3", "4", "6"]
@@ -366,8 +391,6 @@ def main():
         print("The input path in the first argument is: ", sys.argv[1])
         # print("The output path in the second argument is: ", sys.argv[2])
 
-
-
         all_spam_files = []
         all_ham_files = []
     # generate_sentiment_model()
@@ -376,6 +399,9 @@ def main():
 
     # vocabs = read_vocab_file2()
     # print(vocabs)
+    elif len(sys.argv) == 4:
+        if sys.argv[1] == '3':
+            generate_random_training_and_dev(sys.argv[2], sys.argv[3])
     return
 
 

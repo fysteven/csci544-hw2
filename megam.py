@@ -66,16 +66,46 @@ def convert_test_data(file_name):
     return
 
 
+def convert_back_output_format(file_name, mode):
+    file = open(file_name, 'r')
+    positive = ''
+    negative = ''
+    if mode == 'positive':
+        positive = 'POSITIVE'
+        negative = 'NEGATIVE'
+    elif mode == 'spam':
+        positive = 'SPAM'
+        negative = 'HAM'
+
+    output = ''
+    for line in file:
+        words = line.split()
+        if float(words[0]) < 0:
+            output += negative + '\n'
+        elif float(words[0]) > 0:
+            output += positive + '\n'
+
+    file_to_write = open(file_name + '.svm.out', 'w')
+    file_to_write.write(output)
+
+    return
+
+
 def main():
     print('MegaM toolkit')
     print('1 TRAININGFILE - convert training data to MegaM format')
     print('2 TESTFILE - convert test data to MegaM format')
+    print('3 FILE positive/spam - convert the output file to original format')
+
     print('')
     if len(sys.argv) == 3:
         if sys.argv[1] == '1':
             convert_training_data_to_megam_format(sys.argv[2])
         elif sys.argv[1] == '2':
             convert_test_data(sys.argv[2])
+    elif len(sys.argv) == 4:
+        if sys.argv[1] == '3':
+            convert_back_output_format(sys.argv[2], sys.argv[3])
     return
 
 main()
