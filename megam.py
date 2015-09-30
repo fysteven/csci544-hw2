@@ -108,12 +108,12 @@ def convert_back_output_format(file_name, mode):
     output = ''
     for line in file:
         words = line.split()
-        if float(words[0]) < 0:
+        if int(words[0]) == 0:
             output += negative + '\n'
-        elif float(words[0]) > 0:
+        elif int(words[0]) == 1:
             output += positive + '\n'
 
-    file_to_write = open(file_name + '.svm.out', 'w')
+    file_to_write = open(file_name + '.fixed', 'w')
     file_to_write.write(output)
 
     return
