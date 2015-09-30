@@ -4,6 +4,27 @@ import sys
 __author__ = 'Frank'
 
 
+def check_positive(word):
+    if word == '+1':
+        return True
+    elif word == '-1':
+        return False
+    elif word == 'POSITIVE':
+        return True
+    elif word == 'NEGATIVE':
+        return False
+    elif word == 'SPAM':
+        return True
+    elif word == 'HAM':
+        return False
+    elif int(word) >= 7:
+        return True
+    elif int(word) <= 4:
+        return False
+    else:
+        print('Something wrong in the first word of a line')
+        return False
+
 def convert_training_data(file_name):
     original_data = open(file_name, 'r')
 
@@ -45,7 +66,14 @@ def convert_test_data(file_name):
     all_the_lines = ''
 
     for line in original_data:
-        all_the_lines += '+1 ' + line
+        words = line.split(' ', 1)
+        if ':' in words[0]:
+            all_the_lines += '+1 ' + line
+        else:
+            if check_positive(words[0]):
+                all_the_lines += '+1 ' + words[1]
+            else:
+                all_the_lines += '-1 ' + words[1]
 
     file_to_write = open(file_name + '.svm.test', 'w')
     file_to_write.write(all_the_lines)
@@ -62,6 +90,8 @@ def feature_add_one(file_name):
         output_line += words[0] + ' '
         for i in range(1, len(words)):
             pair = words[i].split(':')
+            if len(pair) == 1:
+                continue
             feature = pair[0]
             output_line += str(int(feature) + 1) + ':' + pair[1] + ' '
         output_line += '\n'

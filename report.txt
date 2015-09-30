@@ -1,3 +1,67 @@
+general hints:
+
+all programs can be run like this to get instructions:
+
+> python3 svm.py
+
+
+
+
+1. I randomly selected 75% of the labeled development data for training, and the rest for testing.
+
+For spam/ham test, I used "naive Bayes" and got
+
+precision of positive:  0.989657631954351
+recall of positive:  0.9764250527797326
+F1 score of positive:  0.9829968119022316
+
+precision of negative:  0.975609756097561
+recall of negative:  0.975609756097561
+F1 score of negative:  0.975609756097561
+
+For sentiment test,
+
+precision of positive:  0.8355869698832207
+recall of positive:  0.8748391248391248
+F1 score of positive:  0.8547626532536938
+
+precision of negative:  0.8701602136181575
+recall of negative:  0.8701602136181575
+F1 score of negative:  0.8701602136181574
+
+2. I randomly selected 25% of the labeled development data for training, and the rest 75% for testing.
+
+For spam/ham test, I used "naive Bayes" and got
+
+
+
+For sentiment test,
+
+precision of positive:  0.8178468280051787
+recall of positive:  0.8739889314601959
+F1 score of positive:  0.8449863662087771
+
+precision of negative:  0.8640486852681134
+recall of negative:  0.8640486852681134
+F1 score of negative:  0.8640486852681134
+
+
+SVM
+
+spam:
+
+sentiment:
+
+precision of positive:  0.8335733388191731
+recall of positive:  0.8624946785866326
+F1 score of positive:  0.8477874254629146
+
+precision of negative:  0.8568896765618077
+recall of negative:  0.8568896765618077
+F1 score of negative:  0.8568896765618077
+
+
+
 spam model:
 
 First, I created a folder emails_input, and moved all the enron folders (which were already unzipped) into the folder emails_input.
