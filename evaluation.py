@@ -20,6 +20,10 @@ def convert_actual_result_into_uniform_format(actual_list):
             result_list.append('+1')
         elif actual_list[i] == 'NEGATIVE':
             result_list.append('-1')
+        elif actual_list[i] == 'SPAM':
+            result_list.append('+1')
+        elif actual_list[i] == 'HAM':
+            result_list.append('-1')
         elif int(actual_list[i]) >= 7:
             result_list.append('+1')
         elif int(actual_list[i]) <= 4:

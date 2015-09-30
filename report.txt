@@ -2,8 +2,17 @@ general hints:
 
 all programs can be run like this to get instructions:
 
-> python3 svm.py
+$ python3 assignment2.py
 
+Current script file is:  assignment2.py
+How to use this program?
+Run this program with parameter: (one at a time)
+
+1 - generate email training file (spam training file)
+2 - convert email test files into Project Data format without labels
+3 TRAININGFILE PERCENTAGE - generate, say, 75% of labeled data for training and the rest for testing
+4 - generate naive Bayes spam model
+5 - generate naive Bayes sentiment model
 
 
 
@@ -29,11 +38,51 @@ precision of negative:  0.8701602136181575
 recall of negative:  0.8701602136181575
 F1 score of negative:  0.8701602136181574
 
+SVM-Light toolkit:
+
+spam test:
+
+precision of positive:  0.9255499153976311
+recall of positive:  0.9941839331152308
+F1 score of positive:  0.958640028040659
+
+precision of negative:  0.9938366718027735
+recall of negative:  0.9938366718027735
+F1 score of negative:  0.9938366718027735
+
+sentiment test:
+
+precision of positive:  0.8848966613672496
+recall of positive:  0.8597466790237874
+F1 score of positive:  0.8721403948605453
+
+precision of negative:  0.8537842190016103
+recall of negative:  0.8537842190016103
+F1 score of negative:  0.8537842190016103
+
+
+MegaM toolkit:
+
+spam test:
+
+
+
+sentiment test:
+
+
+
+
 2. I randomly selected 25% of the labeled development data for training, and the rest 75% for testing.
 
 For spam/ham test, I used "naive Bayes" and got
 
+precision of positive:  0.9856661045531198
+recall of positive:  0.9749791492910759
+F1 score of positive:  0.980293501048218
 
+precision of negative:  0.9748533109807209
+recall of negative:  0.9748533109807209
+F1 score of negative:  0.9748533109807209
 
 For sentiment test,
 
@@ -46,9 +95,17 @@ recall of negative:  0.8640486852681134
 F1 score of negative:  0.8640486852681134
 
 
-SVM
+SVM-Light toolkit:
 
 spam:
+
+precision of positive:  0.9880853091862266
+recall of positive:  0.9018051326663767
+F1 score of positive:  0.9429757234635284
+
+precision of negative:  0.8906779661016949
+recall of negative:  0.8906779661016949
+F1 score of negative:  0.8906779661016949
 
 sentiment:
 
@@ -59,6 +116,15 @@ F1 score of positive:  0.8477874254629146
 precision of negative:  0.8568896765618077
 recall of negative:  0.8568896765618077
 F1 score of negative:  0.8568896765618077
+
+
+MegaM toolkit:
+
+spam test:
+
+
+sentiment test:
+
 
 
 

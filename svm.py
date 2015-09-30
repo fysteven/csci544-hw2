@@ -25,6 +25,7 @@ def check_positive(word):
         print('Something wrong in the first word of a line')
         return False
 
+
 def convert_training_data(file_name):
     original_data = open(file_name, 'r')
 

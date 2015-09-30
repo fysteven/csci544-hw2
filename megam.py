@@ -4,6 +4,28 @@ import sys
 __author__ = 'Frank'
 
 
+def check_positive(word):
+    if word == '+1':
+        return True
+    elif word == '-1':
+        return False
+    elif word == 'POSITIVE':
+        return True
+    elif word == 'NEGATIVE':
+        return False
+    elif word == 'SPAM':
+        return True
+    elif word == 'HAM':
+        return False
+    elif int(word) >= 7:
+        return True
+    elif int(word) <= 4:
+        return False
+    else:
+        print('Something wrong in the first word of a line')
+        return False
+
+
 def convert_training_data_to_megam_format(file_name):
     file = open(file_name, 'r')
 
@@ -43,8 +65,14 @@ def invent_labels_for_test_data(test_data):
     all_the_lines = ''
     output_line = ''
     for line in test_data:
-        output_line = '0 ' + line
-        all_the_lines += output_line
+        words = line.split(' ', 1)
+        if ':' in words[0]:
+            all_the_lines += '0 ' + line
+        else:
+            if check_positive(words[0]):
+                all_the_lines += '1 ' + words[1]
+            else:
+                all_the_lines += '0 ' + words[1]
 
     return all_the_lines
 
@@ -61,7 +89,7 @@ def convert_test_data(file_name):
     labeled_data = invent_labels_for_test_data(file)
     data2 = replace_delimiter(labeled_data)
 
-    file_to_write = open(file_name + '.megam.intermediate', 'w')
+    file_to_write = open(file_name + '.megam.training', 'w')
     file_to_write.write(data2)
     return
 
