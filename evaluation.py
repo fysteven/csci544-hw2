@@ -85,17 +85,29 @@ def evaluate(actual_file, predicted_file):
     f_one_score_negative = 2 * precision_negative * recall_negative / (precision_negative + recall_negative)
 
     return precision_positive, recall_positive, f_one_score_positive, \
-            precision_negative, recall_negative, f_one_score_negative
+           precision_negative, recall_negative, f_one_score_negative
 
 
 def main():
     print('Evaluation of the results.')
-
+    print('Please use this program like this:')
+    print('python3 evaluation.py ACTUAL PREDICTED')
+    print()
     if len(sys.argv) == 3:
         if sys.argv[1] == sys.argv[2]:
             print('Actual file and predicted file cannot be the same file.')
         else:
-            print(evaluate(sys.argv[1], sys.argv[2]))
+            precision_positive, recall_positive, f_one_score_positive, \
+                precision_negative, recall_negative, f_one_score_negative = evaluate(sys.argv[1], sys.argv[2])
 
+            print('precision of positive: ', precision_positive)
+            print('recall of positive: ', recall_positive)
+            print('F1 score of positive: ', f_one_score_positive)
+
+            print()
+
+            print('precision of negative: ', precision_negative)
+            print('recall of negative: ', recall_negative)
+            print('F1 score of negative: ', f_one_score_negative)
 
 main()
