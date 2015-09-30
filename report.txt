@@ -127,6 +127,20 @@ sentiment test:
 
 
 
+1.
+In the case of 75% of development data, naive bayes performs the best. In the case of 25% development data as training data, SVM performs the best.
+
+Because Naive Bayes needs a larger corpus so that the result would be more accurate.
+
+
+2.
+Naive Bayes doesn't drop much.
+SVM drops more comapred to other two.
+
+Naive Bayes is relatively more robust.
+
+There is a huge difference between naive Bayes and Sentiment
+
 
 spam model:
 
