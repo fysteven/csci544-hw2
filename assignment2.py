@@ -379,26 +379,21 @@ def main():
     print("Current script file is: ", sys.argv[0])
     print('How to use this program?')
     print('Run this program with parameter: (one at a time)')
-    print('1 - ')
+    print('1 - generate email training file (spam training file)')
     print('2 - convert email test files into Project Data format without labels')
     print('3 TRAININGFILE PERCENTAGE - generate, say, 75% of labeled data for training and the rest for testing')
-    line = "9 0:9 1:1 2:4 3:4 4:6 5:4"
-    print(count_words(line, "3"))
-    tokens = ["3", "4", "6"]
-    print(count_words_with_tokens(line, tokens))
+    print('4 - generate naive Bayes spam model')
+    print('5 - generate naive Bayes sentiment model')
 
     if len(sys.argv) == 2:
-        print("The input path in the first argument is: ", sys.argv[1])
-        # print("The output path in the second argument is: ", sys.argv[2])
-
-        all_spam_files = []
-        all_ham_files = []
-    # generate_sentiment_model()
-        if sys.argv[1] == '2':
+        if sys.argv[1] == '1':
+            generate_email_training_file()
+        elif sys.argv[1] == '2':
             generate_spam_test_data()
-
-    # vocabs = read_vocab_file2()
-    # print(vocabs)
+        elif sys.argv[1] == '4':
+            generate_spam_model()
+        elif sys.argv[1] == '5':
+            generate_sentiment_model()
     elif len(sys.argv) == 4:
         if sys.argv[1] == '3':
             generate_random_training_and_dev(sys.argv[2], sys.argv[3])
